@@ -175,12 +175,12 @@ function githubCard (name, username, userImg, location, ProfileUrl, followers, f
   img.setAttribute('src', userImg);
   h3Name.textContent = name;
   pUsername.textContent = username;
-  pLocation.textContent = location;
+  pLocation.textContent = `Location: ${location}`;
   aGithubUrl.href = ProfileUrl;
-  aGithubUrl.textContent = ProfileUrl;
-  pFollowers.textContent = followers;
-  pFollowing.textContent = following;
-  pBio.textContent = bio;
+  aGithubUrl.textContent = `Profile: ${ProfileUrl}`;
+  pFollowers.textContent = `Followers: ${followers}`;
+  pFollowing.textContent = `Following: ${following}`;
+  pBio.textContent = `Bio: ${bio}`;
 
   //Append the child to the parent element
   card.appendChild(img);
