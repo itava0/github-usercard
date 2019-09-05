@@ -6,6 +6,19 @@
   .then(res => {
     console.log(res);
   });
+
+  // axios
+  // .get("https://dog.ceo/api/breed/mastiff/images/random/12")
+  // .then(response => {
+  //   console.log(response);
+  //   response.data.message.forEach(item => {
+  //     const newDog = DogCard(item);
+  //     entryPoint.appendChild(newDog);
+  //   });
+  // })
+  // .catch(error => {
+  //   console.log("The data was not returned", error);
+  // });
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -48,6 +61,53 @@ const followersArray = [];
 </div>
 
 */
+
+function githubCard (name, username, userImg, location, ProfileUrl, followers, following, bio) {
+  //Created the Elements for the component
+  const 
+      card = document.createElement('div'),
+      img = document.createElement('img'),
+      cardInfo = document.createElement('div'),
+      h3Name = document.createElement('h3'),
+      pUsername = document.createElement('p'),
+      pLocation = document.createElement('p'),
+      pProfile = document.createElement('p'),
+      aGithubUrl = document.createElement('a'),
+      pFollowers = document.createElement('p'),
+      pFollowing = document.createElement('p'),
+      pBio = document.createElement('p');
+
+  //Set up the Class names
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  h3Name.classList.add('name');
+  pUsername.classList.add('username');
+
+  //Set up for the text content
+  img.src = userImg;
+  h3Name.textContent = name;
+  pUsername.textContent = username;
+  pLocation.textContent = location;
+  aGithubUrl.href = ProfileUrl;
+  aGithubUrl.textContent = ProfileUrl;
+  pFollowers.textContent = followers;
+  pFollowing.textContent = following;
+  pBio.textContent = bio;
+
+  //Append the child to the parent element
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(h3Name);
+  cardInfo.appendChild(pUsername);
+  cardInfo.appendChild(pLocation);
+  cardInfo.appendChild(pProfile);
+  pProfile.appendChild(aGithubUrl);
+  cardInfo.appendChild(pFollowers);
+  cardInfo.appendChild(pFollowing);
+  cardInfo.appendChild(pBio);
+
+  return card;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
