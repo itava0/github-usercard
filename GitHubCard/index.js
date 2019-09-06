@@ -2,6 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get("https://api.github.com/users/itava0")
+.then(res => {
+  console.log(res.data);
+  let items = res.data
+  console.log(items.avatar_url);
+  let newGithubCard = githubCard (items);
+   cards.appendChild(newGithubCard);
+}) 
+.catch(err => {
+  console.log("The data was not returned", err);
+});
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -150,7 +161,7 @@
 
 const cards = document.querySelector('.cards');
 
-function githubCard (name, username, userImg, location, ProfileUrl, followers, following, bio) {
+function githubCard (items) {
   //Created the Elements for the component
   const 
       card = document.createElement('div'),
@@ -172,15 +183,15 @@ function githubCard (name, username, userImg, location, ProfileUrl, followers, f
   pUsername.classList.add('username');
 
   //Set up for the text content
-  img.setAttribute('src', userImg);
-  h3Name.textContent = name;
-  pUsername.textContent = username;
-  pLocation.textContent = `Location: ${location}`;
-  aGithubUrl.href = ProfileUrl;
-  aGithubUrl.textContent = `Profile: ${ProfileUrl}`;
-  pFollowers.textContent = `Followers: ${followers}`;
-  pFollowing.textContent = `Following: ${following}`;
-  pBio.textContent = `Bio: ${bio}`;
+  img.setAttribute('src', items.avatar_url);
+  h3Name.textContent = items.name;
+  pUsername.textContent = items.login;
+  pLocation.textContent = `Location: ${items.location}`;
+  aGithubUrl.href = items.html_url;
+  aGithubUrl.textContent = `Profile: ${items.html_url}`;
+  pFollowers.textContent = `Followers: ${items.followers}`;
+  pFollowing.textContent = `Following: ${items.following}`;
+  pBio.textContent = `Bio: ${items.bio}`;
 
   //Append the child to the parent element
   card.appendChild(img);
@@ -197,27 +208,14 @@ function githubCard (name, username, userImg, location, ProfileUrl, followers, f
   return card;
 }
 
-axios.get("https://api.github.com/users/itava0")
-.then(res => {
-  console.log(res.data);
-  let items = Object.values(res.data)
-  console.log(items);
-  console.log(items[1]);
-   let newGithubCard = githubCard (items[18], items[0], items[3], items[21], items[6], items[27], items[28], items[24]);
-   cards.appendChild(newGithubCard);
-}) 
-.catch(err => {
-  console.log("The data was not returned", err);
-});
 
 const myfollowers = ["BaoPham92", "nicolepdev", "StanleyOned", "chelsabeth", "Wais-A", "dustinmyers"]; 
 
 myfollowers.forEach(user => {
   axios.get(`https://api.github.com/users/${user}`)
   .then(res => {
-    console.log(res.data);
-    let friends = Object.values(res.data)
-    let newFriends = githubCard(friends[18], friends[0], friends[3], friends[21], friends[6], friends[27], friends[28], friends[24]);
+    let friends = res.data;
+    let newFriends = githubCard(friends);
      cards.appendChild(newFriends);
   }) 
    .catch (error => {
